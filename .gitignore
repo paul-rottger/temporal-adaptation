@@ -1,0 +1,5 @@
+/0_models
+/2_pretraining/test-mlm
+.DS_store
+.ipynb_checkpoints/
+/0_data/raw
