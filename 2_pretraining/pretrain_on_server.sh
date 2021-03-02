@@ -17,6 +17,7 @@ python run_mlm.py \
     --train_file ../0_data/clean/train.txt \
     --validation_file ../0_data/clean/eval.txt \
     --use_special_tokens \
+    --cache_dir $DATA/huggingface-default-models \
     --line_by_line \
     --do_train \
     --do_eval \
