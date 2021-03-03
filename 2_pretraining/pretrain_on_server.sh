@@ -1,12 +1,13 @@
 #!/bin/sh
 
-#SBATCH --nodes=1
+#SBATCH --partition=htc
 #SBATCH --time=10:00:00
-#SBATCH --job-name=test123
+#SBATCH --job-name=PR-test-030321
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
 #SBATCH --output=mlm.out
 #SBATCH --error=mlm.err
+#SBATCH --gres=gpu:1
 
 # reset modules
 module purge
@@ -16,6 +17,11 @@ module load python/anaconda3/2019.03
 
 # activate the right conda environment
 source activate $DATA/conda-envs/gab-language-change
+
+# Useful job diagnostics
+#
+nvidia-smi
+#
 
 python run_mlm.py \
     --model_name_or_path $DATA/bert-base-uncased \
@@ -27,5 +33,5 @@ python run_mlm.py \
     --do_eval \
     --output_dir $DATA/adapted-models/test-mlm \
     --overwrite_output_dir \
-    --num_train_epochs 1 \
+    --num_train_epochs 3 \
     --max_seq_length 64
