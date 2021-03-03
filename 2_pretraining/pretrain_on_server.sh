@@ -30,8 +30,11 @@ python run_mlm.py \
     --use_special_tokens \
     --line_by_line \
     --do_train \
+    --per_device_train_batch_size 128 \
     --do_eval \
-    --output_dir $DATA/adapted-models/test-mlm \
+    --per_device_eval_batch_size 128 \
+    --evaluation_strategy epoch \
+    --output_dir $DATA/adapted-models/bert-random-1m \
     --overwrite_output_dir \
     --num_train_epochs 3 \
     --max_seq_length 64
