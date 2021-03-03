@@ -283,11 +283,6 @@ def main():
             "You are instantiating a new tokenizer from scratch. This is not supported by this script."
             "You can do it from another script, save it, and load it from here, using --tokenizer_name."
         )
-    
-    # if specified, add special tokens for user mentions, emojis and urls
-    if model_args.use_special_tokens:
-        special_tokens_dict = {'additional_special_tokens': ['[USER]','[EMOJI]','[URL]']}
-        tokenizer.add_special_tokens(special_tokens_dict)
 
     if model_args.model_name_or_path:
         model = AutoModelForMaskedLM.from_pretrained(
@@ -302,8 +297,13 @@ def main():
         logger.info("Training new model from scratch")
         model = AutoModelForMaskedLM.from_config(config)
 
-    # resize token embeddings to fit tokenizer dimension
-    model.resize_token_embeddings(len(tokenizer))
+    # if specified, add special tokens for user mentions, emojis and urls
+    if model_args.use_special_tokens:
+        special_tokens_dict = {'additional_special_tokens': ['[USER]','[EMOJI]','[URL]']}
+        tokenizer.add_special_tokens(special_tokens_dict)
+        model.resize_token_embeddings(len(tokenizer))
+        logger.info("Resize token embeddings to fit tokenizer dimension (necessary for special tokens)")
+
 
     # Preprocessing the datasets.
     # First we tokenize all the texts.
@@ -416,7 +416,8 @@ def main():
         if last_checkpoint is not None:
             checkpoint = last_checkpoint
         elif model_args.model_name_or_path is not None and os.path.isdir(model_args.model_name_or_path):
-            checkpoint = model_args.model_name_or_path
+            #checkpoint = model_args.model_name_or_path
+            checkpoint = None # loading from checkpoints would overwrite the model that was already loaded and to which tokens were added, leading to an error
         else:
             checkpoint = None
         train_result = trainer.train(resume_from_checkpoint=checkpoint)

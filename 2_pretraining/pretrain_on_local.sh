@@ -1,7 +1,7 @@
 #!/bin/sh
 # Executing the pretraining script with set options
 python run_mlm.py \
-    --model_name_or_path bert-base-uncased \
+    --model_name_or_path ../0_models/default-model \
     --train_file ../0_data/clean/train.txt \
     --validation_file ../0_data/clean/eval.txt \
     --use_special_tokens \

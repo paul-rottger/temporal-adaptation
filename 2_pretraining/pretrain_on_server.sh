@@ -25,6 +25,7 @@ python run_mlm.py \
     --model_name_or_path $DATA/bert-base-uncased \
     --train_file ../0_data/clean/train.txt \
     --validation_file ../0_data/clean/eval.txt \
+    --use_special_tokens \
     --line_by_line \
     --do_train \
     --do_eval \
