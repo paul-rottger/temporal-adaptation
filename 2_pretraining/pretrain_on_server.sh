@@ -1,13 +1,13 @@
 #!/bin/sh
 
 #SBATCH --partition=htc
-#SBATCH --time=10:00:00
-#SBATCH --job-name=PR-test-030321
+#SBATCH --time=24:00:00
+#SBATCH --job-name=PR-bert-random-1m
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
 #SBATCH --output=mlm.out
 #SBATCH --error=mlm.err
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:v100:1
 
 # reset modules
 module purge
@@ -27,6 +27,7 @@ python run_mlm.py \
     --model_name_or_path $DATA/bert-base-uncased \
     --train_file ../0_data/clean/train.txt \
     --validation_file ../0_data/clean/eval.txt \
+    --save_steps 5000 \
     --use_special_tokens \
     --line_by_line \
     --do_train \
