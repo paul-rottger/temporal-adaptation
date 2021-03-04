@@ -3,5 +3,5 @@
 .DS_store
 .ipynb_checkpoints/
 /0_data/raw
-/0_data/clean
+/0_data/clean/unlabelled_pushshift
 .vscode
