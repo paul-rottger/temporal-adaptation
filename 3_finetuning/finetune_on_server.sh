@@ -30,7 +30,9 @@ python run_finetuning.py \
     --validation_file $DATA/0_data/clean/labelled_ghc/eval_random.csv \
     --test_file $DATA/0_data/clean/labelled_ghc/eval_random.csv \
     --do_train \
+    --per_device_train_batch_size 32 \
     --do_eval \
+    --per_device_eval_batch_size 64 \
     --do_predict \
     --output_dir $DATA/finetuned-models/bert-random-1m-random \
     --overwrite_output_dir \
