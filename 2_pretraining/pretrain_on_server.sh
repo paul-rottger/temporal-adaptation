@@ -5,8 +5,8 @@
 #SBATCH --job-name=PR-bert-random-1m
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
-#SBATCH --output=mlm.out
-#SBATCH --error=mlm.err
+#SBATCH --output=$DATA/adapted-models/bert-random-1m/mlm.out
+#SBATCH --error=$DATA/adapted-models/bert-random-1m/mlm.err
 #SBATCH --gres=gpu:v100:1
 
 # reset modules
@@ -25,8 +25,8 @@ nvidia-smi
 
 python run_mlm.py \
     --model_name_or_path $DATA/bert-base-uncased \
-    --train_file ../0_data/clean/train.txt \
-    --validation_file ../0_data/clean/eval.txt \
+    --train_file $DATA/0_data/clean/unlabelled_pushshift/train_random_1m.txt \
+    --validation_file $DATA/0_data/clean/unlabelled_pushshift/eval_random_10k.txt \
     --save_steps 5000 \
     --use_special_tokens \
     --line_by_line \
@@ -38,4 +38,4 @@ python run_mlm.py \
     --output_dir $DATA/adapted-models/bert-random-1m \
     --overwrite_output_dir \
     --num_train_epochs 3 \
-    --max_seq_length 64
+    --max_seq_length 128

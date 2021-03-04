@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """ Finetuning the models for sequence classification."""
-# You can also adapt this script on your own text classification task. Pointers for this are left as comments.
 
 import logging
 import os
@@ -40,7 +39,7 @@ from transformers import (
     default_data_collator,
     set_seed,
 )
-from transformers.trainer_utils import get_last_checkpoint, is_main_process
+from transformers.trainer_utils import is_main_process
 
 
 logger = logging.getLogger(__name__)
@@ -67,7 +66,7 @@ class DataTrainingArguments:
         default=False, metadata={"help": "Overwrite the cached preprocessed datasets or not."}
     )
     pad_to_max_length: bool = field(
-        default=True,
+        default=False,
         metadata={
             "help": "Whether to pad all samples to `max_seq_length`. "
             "If False, will pad the samples dynamically when batching to the maximum length in the batch."
@@ -127,6 +126,10 @@ class ModelArguments:
             "with private models)."
         },
     )
+    use_special_tokens: bool = field(
+        default=False,
+        metadata={"help": "CUSTOM PR: Whether to use special tokens for [USER], [EMOJI] and [URL]"},
+    )
 
 
 def main():
@@ -141,21 +144,6 @@ def main():
         model_args, data_args, training_args = parser.parse_json_file(json_file=os.path.abspath(sys.argv[1]))
     else:
         model_args, data_args, training_args = parser.parse_args_into_dataclasses()
-
-    # Detecting last checkpoint.
-    last_checkpoint = None
-    if os.path.isdir(training_args.output_dir) and training_args.do_train and not training_args.overwrite_output_dir:
-        last_checkpoint = get_last_checkpoint(training_args.output_dir)
-        if last_checkpoint is None and len(os.listdir(training_args.output_dir)) > 0:
-            raise ValueError(
-                f"Output directory ({training_args.output_dir}) already exists and is not empty. "
-                "Use --overwrite_output_dir to overcome."
-            )
-        elif last_checkpoint is not None:
-            logger.info(
-                f"Checkpoint detected, resuming training at {last_checkpoint}. To avoid this behavior, change "
-                "the `--output_dir` or add `--overwrite_output_dir` to train from scratch."
-            )
 
     # Setup logging
     logging.basicConfig(
@@ -254,6 +242,13 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
     )
 
+    # if specified, add special tokens for user mentions, emojis and urls
+    if model_args.use_special_tokens:
+        special_tokens_dict = {'additional_special_tokens': ['[USER]','[EMOJI]','[URL]']}
+        tokenizer.add_special_tokens(special_tokens_dict)
+        model.resize_token_embeddings(len(tokenizer))
+        logger.info("Resize token embeddings to fit tokenizer dimension (necessary for special tokens)")
+
     # Preprocessing the datasets --> selecting label and text column
     non_label_column_names = [name for name in datasets["train"].column_names if name != "label"]
     sentence1_key, sentence2_key = non_label_column_names[0], None
@@ -327,20 +322,17 @@ def main():
 
     # Training
     if training_args.do_train:
-        if last_checkpoint is not None:
-            checkpoint = last_checkpoint
-        elif os.path.isdir(model_args.model_name_or_path):
-            checkpoint = model_args.model_name_or_path
-        else:
-            checkpoint = None
-        train_result = trainer.train(resume_from_checkpoint=checkpoint)
+        train_result = trainer.train()
         metrics = train_result.metrics
 
         trainer.save_model()  # Saves the tokenizer too for easy upload
 
         trainer.log_metrics("train", metrics)
         trainer.save_metrics("train", metrics)
-        trainer.save_state()
+        
+        # Need to save the state, since Trainer.save_model saves only the tokenizer with the model
+        trainer.state.save_to_json(os.path.join(training_args.output_dir, "trainer_state.json"))
+
 
     # Evaluation
     if training_args.do_eval:
@@ -359,15 +351,16 @@ def main():
         predictions = trainer.predict(test_dataset=test_dataset).predictions
         predictions = np.argmax(predictions, axis=1)
 
-        output_test_file = os.path.join(training_args.output_dir, f"test_results_{task}.txt")
+        output_test_file = os.path.join(training_args.output_dir, f"test_results.txt")
         if trainer.is_world_process_zero():
             with open(output_test_file, "w") as writer:
-                logger.info(f"***** Test results {task} *****")
+                logger.info(f"***** Test results *****")
                 writer.write("index\tprediction\n")
                 for index, item in enumerate(predictions):
                     item = label_list[item]
                     writer.write(f"{index}\t{item}\n")
-    return eval_results
+    
+    return eval_result
 
 if __name__ == "__main__":
     main()

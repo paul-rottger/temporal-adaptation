@@ -2,6 +2,5 @@
 /2_pretraining/test-mlm
 .DS_store
 .ipynb_checkpoints/
-/0_data/raw
-/0_data/clean/unlabelled_pushshift
+/0_data
 .vscode
