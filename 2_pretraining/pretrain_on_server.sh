@@ -2,11 +2,11 @@
 
 #SBATCH --partition=htc
 #SBATCH --time=24:00:00
-#SBATCH --job-name=PR-bert-random-1m
+#SBATCH --job-name=pretrain
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
-#SBATCH --output=$DATA/adapted-models/bert-random-1m/mlm.out
-#SBATCH --error=$DATA/adapted-models/bert-random-1m/mlm.err
+#SBATCH --output=mlm.out
+#SBATCH --error=mlm.err
 #SBATCH --gres=gpu:v100:1
 
 # reset modules
@@ -37,5 +37,5 @@ python run_mlm.py \
     --evaluation_strategy epoch \
     --output_dir $DATA/adapted-models/bert-random-1m \
     --overwrite_output_dir \
-    --num_train_epochs 3 \
+    --num_train_epochs 1 \
     --max_seq_length 128

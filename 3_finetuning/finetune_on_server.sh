@@ -5,8 +5,8 @@
 #SBATCH --job-name=finetune
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
-#SBATCH --output=$DATA/finetuned-models/bert-random-1m-random/mlm.out
-#SBATCH --error=$DATA/finetuned-models/bert-random-1m-random/mlm.err
+#SBATCH --output=finetune.out
+#SBATCH --error=finetune.err
 #SBATCH --gres=gpu:v100:1
 
 # reset modules
