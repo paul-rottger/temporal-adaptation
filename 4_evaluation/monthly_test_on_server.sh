@@ -27,7 +27,7 @@ nvidia-smi
 # Executing the finetuning script with set options
 
 for modelpath in $DATA/gab-language-change/finetuned-models/month-models/*/; do
-    for testpath in $DATA/0_data/clean/labelled_ghc/month_splits/*.csv; do
+    for testpath in $DATA/gab-language-change/0_data/clean/labelled_ghc/month_splits/*.csv; do
     
     echo $(basename $modelpath)-$(basename $testpath .csv)
     
