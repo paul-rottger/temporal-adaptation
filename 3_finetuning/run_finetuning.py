@@ -360,7 +360,7 @@ def main():
                     item = label_list[item]
                     writer.write(f"{index}\t{item}\n")
     
-    return eval_result
+    return 'completed finetuning'
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,8 @@
 /0_models
-/2_pretraining/test-mlm
+/0_data
+/0_results
 .DS_store
 .ipynb_checkpoints/
-/0_data
 .vscode
+*.err
+*.out

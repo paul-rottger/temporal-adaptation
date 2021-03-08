@@ -24,10 +24,10 @@ nvidia-smi
 #
 
 python run_mlm.py \
-    --model_name_or_path $DATA/bert-base-uncased \
-    --train_file $DATA/0_data/clean/unlabelled_pushshift/train_random_1m.txt \
+    --model_name_or_path $DATA/gab-language-change/default-models/bert-base-uncased \
+    --train_file $DATA/0_data/clean/unlabelled_pushshift/train_random_10m.txt \
     --validation_file $DATA/0_data/clean/unlabelled_pushshift/eval_random_10k.txt \
-    --save_steps 5000 \
+    --save_steps 25000 \
     --use_special_tokens \
     --line_by_line \
     --do_train \
@@ -35,7 +35,7 @@ python run_mlm.py \
     --do_eval \
     --per_device_eval_batch_size 128 \
     --evaluation_strategy epoch \
-    --output_dir $DATA/adapted-models/bert-random-1m \
+    --output_dir $DATA/gab-language-change/adapted-models/bert-random-10m \
     --overwrite_output_dir \
     --num_train_epochs 1 \
     --max_seq_length 128
