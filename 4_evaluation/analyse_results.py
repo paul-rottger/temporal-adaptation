@@ -18,7 +18,6 @@ for filename in os.listdir(directory):
 pred_labels={}
 test_labels={}
 
-
 original_stdout = sys.stdout # Save a reference to the original standard output
 
 # write output to file

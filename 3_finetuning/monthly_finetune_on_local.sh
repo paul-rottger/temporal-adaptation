@@ -1,6 +1,6 @@
 #!/bin/sh
 # Executing the finetuning script with set options
-for filename in ../0_data/clean/labelled_ghc/month_splits/*.csv; do
+for filename in ../0_data/clean/labelled_ghc/month_splits/train*.csv; do
     
     python run_finetuning.py \
         --model_name_or_path ../0_models/default-model \

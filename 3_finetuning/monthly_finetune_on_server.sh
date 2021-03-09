@@ -2,7 +2,7 @@
 
 #SBATCH --partition=htc
 #SBATCH --time=24:00:00
-#SBATCH --job-name=finetune
+#SBATCH --job-name=m-finetune
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
 #SBATCH --output=finetune-monthly.out
@@ -25,7 +25,7 @@ nvidia-smi
 
 
 # Finetune the base model on each month-set of training data
-for filename in $DATA/0_data/clean/labelled_ghc/month_splits/*.csv; do
+for filename in $DATA/0_data/clean/labelled_ghc/month_splits/train*.csv; do
     
     python run_finetuning.py \
         --model_name_or_path $DATA/gab-language-change/default-models/bert-base-uncased \

@@ -2,7 +2,7 @@
 # Executing the finetuning script with set options
 
 for modelpath in ../0_models/*/; do
-    for testpath in ../0_data/clean/labelled_ghc/month_splits/*.csv; do
+    for testpath in ../0_data/clean/labelled_ghc/month_splits/test*.csv; do
     
     echo $(basename $modelpath)-$(basename $testpath .csv)
     
