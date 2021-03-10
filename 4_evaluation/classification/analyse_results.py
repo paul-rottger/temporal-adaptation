@@ -6,7 +6,7 @@ from sklearn.metrics import classification_report, f1_score
 
 # load csv files with results from different models
 results = {}
-directory = './results'
+directory = '/data/engs-hatespeech/sedm6193/gab-language-change/eval-results/predictions/classification'
 for filename in os.listdir(directory):
     if filename.endswith(".csv"):
         results[os.path.splitext(filename)[0]] = pd.read_csv(os.path.join(directory, filename))
@@ -21,7 +21,7 @@ test_labels={}
 original_stdout = sys.stdout # Save a reference to the original standard output
 
 # write output to file
-with open('results_summary.txt', 'w') as f:
+with open('/data/engs-hatespeech/sedm6193/gab-language-change/eval-results/summaries/classification_model_scale.txt', 'w') as f:
     sys.stdout = f # Change the standard output to the file we created.
 
     for model in results:
