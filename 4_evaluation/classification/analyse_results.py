@@ -40,4 +40,4 @@ with open('/data/engs-hatespeech/sedm6193/gab-language-change/eval-results/summa
         
     sys.stdout = original_stdout # Reset the standard output to its original value
 
-    print('wrote summary of results to results_summary.txt')
+    print('wrote summary of results to classification_model_scale.txt in results folder')
