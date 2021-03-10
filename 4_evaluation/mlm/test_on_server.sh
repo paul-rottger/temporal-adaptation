@@ -34,7 +34,7 @@ for modelpath in $DATA/gab-language-change/adapted-models/month_models/*/; do
             --use_special_tokens \
             --line_by_line \
             --do_eval \
-            --per_device_eval_batch_size 512 \
+            --per_device_eval_batch_size 256 \
             --output_dir $DATA/gab-language-change/eval-results/predictions/mlm/pseudo-perplexity \
             --output_name $(basename $modelpath)-$(basename $testpath .txt | cut -c11-) \
             --overwrite_output_dir \

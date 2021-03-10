@@ -14,7 +14,7 @@ for modelpath in ../../0_models/*/; do
             --do_eval \
             --per_device_eval_batch_size 64 \
             --output_dir ./test-mlm \
-            --output_name $(basename $modelpath) \
+            --output_name $(basename $modelpath)-$(basename $testpath .txt | cut -c6) \
             --overwrite_output_dir \
             --num_train_epochs 1 \
             --max_seq_length 128
