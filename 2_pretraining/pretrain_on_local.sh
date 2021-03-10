@@ -11,4 +11,4 @@ python run_mlm.py \
     --output_dir ./test-mlm \
     --overwrite_output_dir \
     --num_train_epochs 1 \
-    --max_seq_length 64
+    --max_seq_length 128
