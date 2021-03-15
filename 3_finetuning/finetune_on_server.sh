@@ -24,18 +24,20 @@ nvidia-smi
 #
 
 # Executing the finetuning script with set options
-python run_finetuning.py \
-    --model_name_or_path $DATA/gab-language-change/adapted-models/bert-random-1m \
-    --train_file $DATA/0_data/clean/labelled_ghc/train_random.csv \
-    --validation_file $DATA/0_data/clean/labelled_ghc/eval_random.csv \
-    --test_file $DATA/0_data/clean/labelled_ghc/eval_random.csv \
-    --do_train \
-    --per_device_train_batch_size 32 \
-    --do_eval \
-    --per_device_eval_batch_size 64 \
-    --do_predict \
-    --output_dir $DATA/gab-language-change/finetuned-models/bert-random-1m-random \
-    --overwrite_output_dir \
-    --num_train_epochs 3 \
-    --max_seq_length 128 \
-    --use_special_tokens
+for i in 01 02 03 04 05 06 07 08 09 10; do
+
+    python run_finetuning.py \
+        --model_name_or_path $DATA/gab-language-change/adapted-models/month_models/bert-"$i"_1m \
+        --train_file $DATA/0_data/clean/labelled_ghc/month_splits/train-"$i".csv \
+        --validation_file $DATA/0_data/clean/labelled_ghc/month_splits/test-"$i".csv \
+        --do_train \
+        --per_device_train_batch_size 32 \
+        --do_eval \
+        --per_device_eval_batch_size 128 \
+        --output_dir $DATA/gab-language-change/finetuned-models/month-models/bert-"$i"-1m-train-"$i" \
+        --overwrite_output_dir \
+        --num_train_epochs 3 \
+        --max_seq_length 128 \
+        --use_special_tokens
+
+done
