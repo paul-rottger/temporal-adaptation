@@ -23,7 +23,7 @@ source activate $DATA/conda-envs/gab-language-change
 nvidia-smi
 #
 
-for modelpath in $DATA/gab-language-change/adapted-models/month_models/*/; do
+for modelpath in $DATA/gab-language-change/adapted-models/total_models_models/bert-rand-10m/; do
     for testpath in $DATA/gab-language-change/0_data/clean/unlabelled_pushshift/month_splits/test_*.txt; do
 
         echo $(basename $modelpath) $(basename $testpath)
@@ -38,7 +38,6 @@ for modelpath in $DATA/gab-language-change/adapted-models/month_models/*/; do
             --output_dir $DATA/gab-language-change/eval-results/predictions/mlm/pseudo-perplexity \
             --output_name $(basename $modelpath)-$(basename $testpath .txt | cut -c11-) \
             --overwrite_output_dir \
-            --num_train_epochs 1 \
             --max_seq_length 128
 
     done
