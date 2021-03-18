@@ -26,7 +26,7 @@ nvidia-smi
 
 # Executing the finetuning script with set options
 
-for modelpath in $DATA/gab-language-change/finetuned-models/month-models/*/; do
+for modelpath in $DATA/gab-language-change/finetuned-models/ghc/month-models/shift/*/; do
     for testpath in $DATA/gab-language-change/0_data/clean/labelled_ghc/month_splits/test*.csv; do
     
     echo $(basename $modelpath)-$(basename $testpath .csv)
@@ -34,8 +34,8 @@ for modelpath in $DATA/gab-language-change/finetuned-models/month-models/*/; do
     python run_test.py \
         --model_name_or_path $modelpath \
         --test_file $testpath \
-        --per_device_eval_batch_size 512 \
-        --output_dir $DATA/gab-language-change/eval-results/month-models \
+        --per_device_eval_batch_size 256 \
+        --output_dir $DATA/gab-language-change/eval-results/predictions/classification/ghc/month-models/shift \
         --output_name $(basename $modelpath)-$(basename $testpath .csv) \
         --overwrite_output_dir \
         --max_seq_length 128 \
