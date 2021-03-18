@@ -30,7 +30,7 @@ for modelpath in $DATA/gab-language-change/finetuned-models/gq/*/; do
         --model_name_or_path $modelpath \
         --test_file $DATA/gab-language-change/0_data/clean/labelled_gq/eval_random.csv \
         --per_device_eval_batch_size 256 \
-        --output_dir $DATA/gab-language-change/eval-results/predictions/classification \
+        --output_dir $DATA/gab-language-change/eval-results/predictions/classification/gq \
         --output_name $(basename $modelpath)-test-gq \
         --overwrite_output_dir \
         --max_seq_length 128 \

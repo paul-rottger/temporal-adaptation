@@ -36,6 +36,7 @@ for ((i=1; i<=8; i++)); do
         --per_device_train_batch_size 32 \
         --do_eval \
         --per_device_eval_batch_size 128 \
+        --save_steps 10000 \
         --output_dir $DATA/gab-language-change/finetuned-models/ghc/month-models/bert-0$((i+1))-1m-train-0$i \
         --overwrite_output_dir \
         --num_train_epochs 3 \
