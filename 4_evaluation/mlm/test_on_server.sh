@@ -23,7 +23,7 @@ source activate $DATA/conda-envs/gab-language-change
 nvidia-smi
 #
 
-for modelpath in $DATA/gab-language-change/adapted-models/total_models_models/bert-rand-10m/; do
+for modelpath in $DATA/gab-language-change/adapted-models/total_models/bert-rand-10m/; do
     for testpath in $DATA/gab-language-change/0_data/clean/unlabelled_pushshift/month_splits/test_*.txt; do
 
         echo $(basename $modelpath) $(basename $testpath)
