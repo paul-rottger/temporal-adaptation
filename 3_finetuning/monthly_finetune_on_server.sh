@@ -25,7 +25,7 @@ nvidia-smi
 
 
 # Finetune the base model on each month-set of training data
-for filename in $DATA/gab-language-change/0_data/clean/labelled_ghc/month_splits/train*.csv; do
+for filename in $DATA/gab-language-change/0_data/clean/labelled_reddit/train*.csv; do
     
     python run_finetuning.py \
         --model_name_or_path $DATA/gab-language-change/default-models/bert-base-uncased \
@@ -33,7 +33,7 @@ for filename in $DATA/gab-language-change/0_data/clean/labelled_ghc/month_splits
         --validation_file $filename \
         --do_train \
         --per_device_train_batch_size 32 \
-        --output_dir $DATA/gab-language-change/finetuned-models/month-models/bert-base-$(basename $filename .csv) \
+        --output_dir $DATA/gab-language-change/finetuned-models/reddit/bert-base-$(basename $filename .csv) \
         --overwrite_output_dir \
         --num_train_epochs 3 \
         --max_seq_length 128 \
