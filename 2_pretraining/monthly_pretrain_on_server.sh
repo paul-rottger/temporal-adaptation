@@ -24,17 +24,17 @@ nvidia-smi
 python run_mlm.py \
     --model_name_or_path $DATA/gab-language-change/default-models/bert-base-uncased \
     --train_file $1 \
-    --validation_file $DATA/gab-language-change/0_data/clean/unlabelled_pushshift/month_splits/total/test_rand_10k.txt \
+    --validation_file $DATA/gab-language-change/0_data/clean/unlabelled_reddit/month_splits/test_2017_01_10k.txt \
     --save_steps 25000 \
     --use_special_tokens \
     --line_by_line \
     --do_train \
-    --per_device_train_batch_size 32 \
+    --per_device_train_batch_size 64 \
     --do_eval \
     --per_device_eval_batch_size 128 \
     --evaluation_strategy epoch \
     --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
-    --output_dir $DATA/gab-language-change/adapted-models/month_models/bert-$(basename $1 .txt | cut -c12-) \
+    --output_dir $DATA/gab-language-change/adapted-models/reddit/bert-$(basename $1 .txt | cut -c7-) \
     --overwrite_output_dir \
     --num_train_epochs 1 \
     --max_seq_length 128
