@@ -7,7 +7,7 @@
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
 #SBATCH --output=finetune-monthly17.out
 #SBATCH --error=finetune-monthly17.err
-#SBATCH --gres=gpu:k80:1
+#SBATCH --gres=gpu:v100:1
 
 # reset modules
 module purge
