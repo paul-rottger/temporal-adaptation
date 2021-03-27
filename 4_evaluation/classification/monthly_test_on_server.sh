@@ -2,12 +2,12 @@
 
 #SBATCH --partition=htc
 #SBATCH --time=24:00:00
-#SBATCH --job-name=m-eval
+#SBATCH --job-name=m17-test
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
-#SBATCH --output=test-monthly.out
-#SBATCH --error=test-monthly.err
-#SBATCH --gres=gpu:k80:1
+#SBATCH --output=m17-test.out
+#SBATCH --error=m17-test.err
+#SBATCH --gres=gpu:v100:1
 
 # reset modules
 module purge
@@ -26,8 +26,8 @@ nvidia-smi
 
 # Executing the finetuning script with set options
 
-for modelpath in $DATA/gab-language-change/finetuned-models/ghc/month-models/shift/*/; do
-    for testpath in $DATA/gab-language-change/0_data/clean/labelled_ghc/month_splits/test*.csv; do
+for modelpath in $DATA/gab-language-change/finetuned-models/reddit/month-models/base/*2017*/; do
+    for testpath in $DATA/gab-language-change/0_data/clean/labelled_reddit/month_splits/test*5k.csv; do
     
     echo $(basename $modelpath)-$(basename $testpath .csv)
     
@@ -35,7 +35,7 @@ for modelpath in $DATA/gab-language-change/finetuned-models/ghc/month-models/shi
         --model_name_or_path $modelpath \
         --test_file $testpath \
         --per_device_eval_batch_size 256 \
-        --output_dir $DATA/gab-language-change/eval-results/predictions/classification/ghc/month-models/shift \
+        --output_dir $DATA/gab-language-change/eval-results/reddit/classification/month-models/base \
         --output_name $(basename $modelpath)-$(basename $testpath .csv) \
         --overwrite_output_dir \
         --max_seq_length 128 \

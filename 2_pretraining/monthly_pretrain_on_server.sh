@@ -3,6 +3,8 @@
 #SBATCH --partition=htc
 #SBATCH --time=24:00:00
 #SBATCH --job-name=m-pretrain
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
 #SBATCH --output=monthly-mlm.out
 #SBATCH --error=monthly-mlm.err
 #SBATCH --gres=gpu:v100:1

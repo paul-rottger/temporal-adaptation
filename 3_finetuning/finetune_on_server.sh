@@ -25,7 +25,7 @@ nvidia-smi
 
 # Executing the finetuning script with set options
 for modelpath in $DATA/gab-language-change/adapted-models/reddit/total-models/bert*/; do
-    for trainpath in $DATA/gab-language-change/0_data/clean/labelled_reddit/total/train_rand*.csv
+    for trainpath in $DATA/gab-language-change/0_data/clean/labelled_reddit/total/train_rand*.csv; do
         python run_finetuning.py \
             --model_name_or_path $modelpath \
             --train_file $trainpath \
