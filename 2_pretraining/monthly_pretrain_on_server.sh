@@ -27,7 +27,7 @@ python run_mlm.py \
     --model_name_or_path $DATA/gab-language-change/default-models/bert-base-uncased \
     --train_file $1 \
     --validation_file $DATA/gab-language-change/0_data/clean/unlabelled_reddit/month_splits/test_2017_01_10k.txt \
-    --save_steps 5000 \
+    --save_steps 20000 \
     --use_special_tokens \
     --line_by_line \
     --do_train \

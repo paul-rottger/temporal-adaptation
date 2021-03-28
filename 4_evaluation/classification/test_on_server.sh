@@ -24,14 +24,14 @@ nvidia-smi
 #
 
 # Executing the finetuning script with set options
-for modelpath in $DATA/gab-language-change/finetuned-models/gq/*/; do
+for modelpath in $DATA/gab-language-change/finetuned-models/reddit/total-models/bert*/; do
 
     python run_test.py \
         --model_name_or_path $modelpath \
-        --test_file $DATA/gab-language-change/0_data/clean/labelled_gq/eval_random.csv \
+        --test_file $DATA/gab-language-change/0_data/clean/labelled_reddit/total/test_rand_10k.csv \
         --per_device_eval_batch_size 256 \
-        --output_dir $DATA/gab-language-change/eval-results/predictions/classification/gq \
-        --output_name $(basename $modelpath)-test-gq \
+        --output_dir $DATA/gab-language-change/eval-results/reddit/classification/total-models \
+        --output_name $(basename $modelpath)-test_rand_10k \
         --overwrite_output_dir \
         --max_seq_length 128 \
         --use_special_tokens
