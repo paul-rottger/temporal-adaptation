@@ -2,11 +2,11 @@
 
 #SBATCH --partition=htc
 #SBATCH --time=24:00:00
-#SBATCH --job-name=finetune
+#SBATCH --job-name=rand-finetune
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
-#SBATCH --output=finetune.out
-#SBATCH --error=finetune.err
+#SBATCH --output=rand-finetune.out
+#SBATCH --error=rand-finetune.err
 #SBATCH --gres=gpu:v100:1
 
 # reset modules
@@ -24,7 +24,7 @@ nvidia-smi
 #
 
 # Executing the finetuning script with set options
-for modelpath in $DATA/gab-language-change/adapted-models/reddit/total-models/bert*/; do
+for modelpath in $DATA/gab-language-change/default-models/bert*/; do
     for trainpath in $DATA/gab-language-change/0_data/clean/labelled_reddit/total/train_rand*.csv; do
         python run_finetuning.py \
             --model_name_or_path $modelpath \
@@ -35,7 +35,7 @@ for modelpath in $DATA/gab-language-change/adapted-models/reddit/total-models/be
             --do_eval \
             --per_device_eval_batch_size 128 \
             --save_steps 100000 \
-            --output_dir $DATA/gab-language-change/finetuned-models/reddit/total-models/$(basename $modelpath)-$(basename $trainpath .csv) \
+            --output_dir $DATA/gab-language-change/finetuned-models/reddit/total-models/bert-base-$(basename $trainpath .csv) \
             --overwrite_output_dir \
             --num_train_epochs 3 \
             --max_seq_length 128 \
