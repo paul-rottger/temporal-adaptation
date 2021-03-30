@@ -7,7 +7,7 @@
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
 #SBATCH --output=test.out
 #SBATCH --error=test.err
-#SBATCH --gres=gpu:k80:1
+#SBATCH --gres=gpu:v100:1
 
 # reset modules
 module purge

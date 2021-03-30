@@ -27,8 +27,8 @@ nvidia-smi
 for modelpath in $DATA/gab-language-change/adapted-models/reddit/month-models/bert*/; do
     for trainpath in $DATA/gab-language-change/0_data/clean/labelled_reddit/month_splits/train*_20k.csv; do
         
-        if [[ $(basename $modelpath | cut -c6-9) = $(basename $trainpath | cut -c7-10) ]] && \
-        [[ $(( 10#$(basename $modelpath | cut -c11-12) +0 )) = $(( 10#$(basename $trainpath | cut -c12-13) +0 )) ]]
+        if [[ $(( 10#$(basename $modelpath | cut -c6-9) )) = $(( 10#$(basename $trainpath | cut -c7-10) +1 )) ]] && \
+        [[ $(( 10#$(basename $modelpath | cut -c11-12) +10 )) = $(( 10#$(basename $trainpath | cut -c12-13) +0  )) ]]
         then
             python run_finetuning.py \
                 --model_name_or_path $modelpath \
