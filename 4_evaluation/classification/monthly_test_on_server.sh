@@ -35,7 +35,7 @@ for modelpath in $DATA/gab-language-change/finetuned-models/reddit/total-models/
         --model_name_or_path $modelpath \
         --test_file $testpath \
         --per_device_eval_batch_size 256 \
-        --output_dir $DATA/gab-language-change/eval-results/reddit/classification/month-models/rand \
+        --output_dir $DATA/gab-language-change/eval-results/reddit/classification/month-models/train-rand \
         --output_name $(basename $modelpath)-$(basename $testpath .csv) \
         --overwrite_output_dir \
         --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
