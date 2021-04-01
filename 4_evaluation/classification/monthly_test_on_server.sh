@@ -2,11 +2,11 @@
 
 #SBATCH --partition=htc
 #SBATCH --time=24:00:00
-#SBATCH --job-name=rand1m-class-test
+#SBATCH --job-name=m17-match-class-test-test
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
-#SBATCH --output=rand1m-class-test.out
-#SBATCH --error=rand1m-class-test.err
+#SBATCH --output=m17-match-class-test.out
+#SBATCH --error=m17-match-class-test.err
 #SBATCH --gres=gpu:v100:1
 
 # reset modules
@@ -26,7 +26,7 @@ nvidia-smi
 
 # Executing the finetuning script with set options
 
-for modelpath in $DATA/gab-language-change/finetuned-models/reddit/total-models/bert-rand_1m-train_rand_20k/; do
+for modelpath in $DATA/gab-language-change/finetuned-models/reddit/month-models/match/bert-2017*/; do
     for testpath in $DATA/gab-language-change/0_data/clean/labelled_reddit/month_splits/test*5k.csv; do
     
     echo $(basename $modelpath)-$(basename $testpath .csv)
@@ -35,7 +35,7 @@ for modelpath in $DATA/gab-language-change/finetuned-models/reddit/total-models/
         --model_name_or_path $modelpath \
         --test_file $testpath \
         --per_device_eval_batch_size 256 \
-        --output_dir $DATA/gab-language-change/eval-results/reddit/classification/month-models/train-rand \
+        --output_dir $DATA/gab-language-change/eval-results/reddit/classification/month-models/match \
         --output_name $(basename $modelpath)-$(basename $testpath .csv) \
         --overwrite_output_dir \
         --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
