@@ -2,11 +2,11 @@
 
 #SBATCH --partition=htc
 #SBATCH --time=24:00:00
-#SBATCH --job-name=s+2-finetune
+#SBATCH --job-name=m17-match-finetune
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
-#SBATCH --output=s+2-finetune.out
-#SBATCH --error=s+2-finetune.err
+#SBATCH --output=m17-match-finetune.out
+#SBATCH --error=m17-match-finetune.err
 #SBATCH --gres=gpu:v100:1
 
 # reset modules
@@ -24,11 +24,11 @@ nvidia-smi
 #
 
 
-for modelpath in $DATA/gab-language-change/adapted-models/reddit/month-models/bert*/; do
+for modelpath in $DATA/gab-language-change/adapted-models/reddit/month-models/bert-2017*/; do
     for trainpath in $DATA/gab-language-change/0_data/clean/labelled_reddit/month_splits/train*_20k.csv; do
 
-        if [[ $(( 10#$(basename $modelpath | cut -c6-9) )) = $(( 10#$(basename $trainpath | cut -c7-10) +1 )) ]] && \
-        [[ $(( 10#$(basename $modelpath | cut -c11-12) +10 )) = $(( 10#$(basename $trainpath | cut -c12-13) +0  )) ]]
+        if [[ $(( 10#$(basename $modelpath | cut -c6-9) )) = $(( 10#$(basename $trainpath | cut -c7-10) +0 )) ]] && \
+        [[ $(( 10#$(basename $modelpath | cut -c11-12) +0 )) = $(( 10#$(basename $trainpath | cut -c12-13) +0  )) ]]
         then
 
             echo $(basename $modelpath)-$(basename $trainpath .csv)
@@ -39,7 +39,7 @@ for modelpath in $DATA/gab-language-change/adapted-models/reddit/month-models/be
                 --validation_file $trainpath \
                 --do_train \
                 --per_device_train_batch_size 32 \
-                --output_dir $DATA/gab-language-change/finetuned-models/reddit/month-models/shift+2/$(basename $modelpath)-$(basename $trainpath .csv) \
+                --output_dir $DATA/gab-language-change/finetuned-models/reddit/month-models/match/$(basename $modelpath)-$(basename $trainpath .csv) \
                 --overwrite_output_dir \
                 --num_train_epochs 3 \
                 --max_seq_length 128 \

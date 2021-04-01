@@ -2,11 +2,11 @@
 
 #SBATCH --partition=htc
 #SBATCH --time=24:00:00
-#SBATCH --job-name=m-mlm-test
+#SBATCH --job-name=m17-mlm-test
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
-#SBATCH --output=m-mlm-test.out
-#SBATCH --error=m-mlm-test.err
+#SBATCH --output=m17-mlm-test.out
+#SBATCH --error=m17-mlm-test.err
 #SBATCH --gres=gpu:v100:1
 
 # reset modules
@@ -23,7 +23,7 @@ source activate $DATA/conda-envs/gab-language-change
 nvidia-smi
 #
 
-for modelpath in $DATA/gab-language-change/adapted-models/reddit/month-models/*/; do
+for modelpath in $DATA/gab-language-change/adapted-models/reddit/month-models/bert-2017*/; do
     for testpath in $DATA/gab-language-change/0_data/clean/unlabelled_reddit/month_splits/test_*.txt; do
 
         echo $(basename $modelpath) $(basename $testpath)
