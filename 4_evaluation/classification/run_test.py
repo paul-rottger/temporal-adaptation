@@ -63,6 +63,10 @@ class DataTrainingArguments:
             "than this will be truncated, sequences shorter will be padded."
         },
     )
+    dataset_cache_dir: Optional[str] = field(
+    default=None,
+    metadata={"help": "PR custom: path to cache directory for storing datasets"}
+    )
     overwrite_cache: bool = field(
         default=False, metadata={"help": "Overwrite the cached preprocessed datasets or not."}
     )
@@ -179,10 +183,10 @@ def main():
 
     if data_args.test_file.endswith(".csv"):
         # Loading a dataset from local csv files
-        datasets = load_dataset("csv", data_files=data_files)
+        datasets = load_dataset("csv", data_files=data_files, cache_dir=data_args.dataset_cache_dir)
     else:
         # Loading a dataset from local json files
-        datasets = load_dataset("json", data_files=data_files)
+        datasets = load_dataset("json", data_files=data_files, cache_dir=data_args.dataset_cache_dir)
     # See more about loading any type of standard or custom dataset at
     # https://huggingface.co/docs/datasets/loading_datasets.html.
 

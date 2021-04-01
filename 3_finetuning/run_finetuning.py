@@ -78,7 +78,12 @@ class DataTrainingArguments:
     validation_file: Optional[str] = field(
         default=None, metadata={"help": "A csv or a json file containing the validation data."}
     )
-    test_file: Optional[str] = field(default=None, metadata={"help": "A csv or a json file containing the test data."})
+    test_file: Optional[str] = field(default=None, metadata={"help": "A csv or a json file containing the test data."}
+    )
+    dataset_cache_dir: Optional[str] = field(
+    default=None,
+    metadata={"help": "PR custom: path to cache directory for storing datasets"}
+    )
 
     def __post_init__(self):
         if self.train_file is None or self.validation_file is None:
@@ -201,10 +206,10 @@ def main():
 
     if data_args.train_file.endswith(".csv"):
         # Loading a dataset from local csv files
-        datasets = load_dataset("csv", data_files=data_files)
+        datasets = load_dataset("csv", data_files=data_files, cache_dir=data_args.dataset_cache_dir)
     else:
         # Loading a dataset from local json files
-        datasets = load_dataset("json", data_files=data_files)
+        datasets = load_dataset("json", data_files=data_files, cache_dir=data_args.dataset_cache_dir)
     # See more about loading any type of standard or custom dataset at
     # https://huggingface.co/docs/datasets/loading_datasets.html.
 

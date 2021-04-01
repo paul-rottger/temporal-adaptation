@@ -41,6 +41,7 @@ for modelpath in $DATA/gab-language-change/adapted-models/reddit/month-models/be
                 --per_device_train_batch_size 32 \
                 --output_dir $DATA/gab-language-change/finetuned-models/reddit/month-models/match/$(basename $modelpath)-$(basename $trainpath .csv) \
                 --overwrite_output_dir \
+                --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
                 --num_train_epochs 3 \
                 --max_seq_length 128 \
                 --use_special_tokens

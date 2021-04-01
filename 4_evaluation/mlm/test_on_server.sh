@@ -38,6 +38,7 @@ for modelpath in $DATA/gab-language-change/adapted-models/reddit/month-models/be
             --output_dir $DATA/gab-language-change/eval-results/reddit/mlm/month-models \
             --output_name $(basename $modelpath)-$(basename $testpath .txt) \
             --overwrite_output_dir \
+            --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
             --max_seq_length 128
 
     done
