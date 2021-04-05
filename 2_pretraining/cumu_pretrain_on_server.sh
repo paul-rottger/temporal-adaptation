@@ -30,19 +30,13 @@ year="2017"
 # set month to load initial model from
 load_month="03"
 
-# counter variable for incrementing total adaptation data size (starting with 1m in the first month)
-load_counter=1
-
-
 for train_month in "04" "05" "06" "07" "08" "09" "10" "11" "12"; do
     
     echo "loading model from:" $load_month $year
     echo "adapting it to data from:" $train_month $year
 
-    ((write_counter=load_counter+1))
-
     python run_mlm.py \
-        --model_name_or_path $DATA/gab-language-change/adapted-models/reddit/cumu-models/bert-cumu_${year}_${load_month}_${load_counter}m \
+        --model_name_or_path $DATA/gab-language-change/adapted-models/reddit/cumu-models/bert-cumu_${year}_${load_month}_1m \
         --train_file $DATA/gab-language-change/0_data/clean/unlabelled_reddit/month_splits/train_${year}_${train_month}_1m.txt \
         --validation_file $DATA/gab-language-change/0_data/clean/unlabelled_reddit/total/test_rand_10k.txt \
         --save_steps 20000 \
@@ -51,16 +45,13 @@ for train_month in "04" "05" "06" "07" "08" "09" "10" "11" "12"; do
         --do_train \
         --per_device_train_batch_size 128 \
         --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
-        --output_dir $DATA/gab-language-change/adapted-models/reddit/cumu-models/bert-cumu_${year}_${train_month}_${write_counter}m \
+        --output_dir $DATA/gab-language-change/adapted-models/reddit/cumu-models/bert-cumu_${year}_${train_month}_1m \
         --overwrite_output_dir \
         --num_train_epochs 1 \
         --max_seq_length 128
 
     # set load_month for next iteration to be adapt_month from this iteration
     load_month=$train_month
-
-    # increment counter for adaptation data size
-    ((load_counter=load_counter+1))
     
     # sleep just to make sure all the model saving from the adaptation script is done (not sure if necessary)
     sleep 30s
