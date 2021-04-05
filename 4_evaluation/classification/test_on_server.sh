@@ -24,7 +24,7 @@ nvidia-smi
 #
 
 # Executing the finetuning script with set options
-for modelpath in $DATA/gab-language-change/finetuned-models/reddit/total-models/bert*/; do
+for modelpath in $DATA/gab-language-change/finetuned-models/reddit/total-models/bert-rand_10m-*/; do
 
     python run_test.py \
         --model_name_or_path $modelpath \
