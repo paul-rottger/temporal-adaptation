@@ -26,7 +26,7 @@ nvidia-smi
 
 # Executing the finetuning script with set options
 
-for modelpath in $DATA/gab-language-change/finetuned-models/reddit/month-models/ada-rand/bert*2017*/; do
+for modelpath in $DATA/gab-language-change/finetuned-models/reddit/month-models/ada-rand/bert*2017*_2k/; do
     for testpath in $DATA/gab-language-change/0_data/clean/labelled_reddit/month_splits/test*5k.csv; do
     
     echo $(basename $modelpath)-$(basename $testpath .csv)
