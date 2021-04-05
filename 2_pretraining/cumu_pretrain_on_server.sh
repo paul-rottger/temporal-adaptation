@@ -1,12 +1,12 @@
 #!/bin/sh
 
 #SBATCH --partition=htc
-#SBATCH --time=48:00:00
-#SBATCH --job-name=reddit-cumu-pretrain
+#SBATCH --time=24:00:00
+#SBATCH --job-name=red-cumu-pretrain
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
-#SBATCH --output=reddit-cumu-pretrain.out
-#SBATCH --error=reddit-cumu-pretrain.err
+#SBATCH --output=red-cumu-pretrain.out
+#SBATCH --error=red-cumu-pretrain.err
 #SBATCH --gres=gpu:v100:1
 
 # reset modules
@@ -36,7 +36,7 @@ adapt_data_size=1
 
 for train_month in "04" "05" "06"; do
     
-    echo "loading model from:" $train_month $year
+    echo "loading model from:" $load_month $year
     echo "adapting it to data from:" $train_month $year
 
     python run_mlm.py \
