@@ -65,6 +65,7 @@ for train_month in "02" "03" "04" "05" "06" "07" "08" "09" "10" "11" "12"; do
         --per_device_train_batch_size 32 \
         --output_dir $DATA/gab-language-change/finetuned-models/reddit/cumu-models/bert-base-train_cumu_${year}_${train_month}_${data_size}k \
         --overwrite_output_dir \
+        --save_steps 100000 \
         --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
         --num_train_epochs 3 \
         --max_seq_length 128 \
@@ -119,6 +120,7 @@ for train_month in "02" "03" "04" "05" "06" "07" "08" "09" "10" "11" "12"; do
         --overwrite_output_dir \
         --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
         --num_train_epochs 3 \
+        --save_steps 100000 \
         --max_seq_length 128 \
         --use_special_tokens
 
@@ -171,6 +173,7 @@ for train_month in "02"; do
         --overwrite_output_dir \
         --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
         --num_train_epochs 3 \
+        --save_steps 100000 \
         --max_seq_length 128 \
         --use_special_tokens
 
