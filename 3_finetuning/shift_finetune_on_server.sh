@@ -60,7 +60,7 @@ for date in "2017 03" "2017 04" "2017 05" "2017 06" "2017 07" "2017 08" "2017 09
             --validation_file $train_path \
             --do_train \
             --per_device_train_batch_size 32 \
-            --output_dir $DATA/gab-language-change/finetuned-models/reddit/month-models/shift+1/$(basename $model_path)-$(basename $train_path .csv) \
+            --output_dir $DATA/gab-language-change/finetuned-models/reddit/month-models/shift+${add}/$(basename $model_path)-$(basename $train_path .csv) \
             --overwrite_output_dir \
             --save_steps 100000 \
             --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
@@ -84,7 +84,7 @@ for date in "2017 03" "2017 04" "2017 05" "2017 06" "2017 07" "2017 08" "2017 09
             --validation_file $train_path \
             --do_train \
             --per_device_train_batch_size 32 \
-            --output_dir $DATA/gab-language-change/finetuned-models/reddit/month-models/shift+1/$(basename $model_path)-$(basename $train_path .csv) \
+            --output_dir $DATA/gab-language-change/finetuned-models/reddit/month-models/shift+${add}/$(basename $model_path)-$(basename $train_path .csv) \
             --overwrite_output_dir \
             --save_steps 100000 \
             --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
