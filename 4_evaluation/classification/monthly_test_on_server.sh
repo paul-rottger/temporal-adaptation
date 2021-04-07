@@ -2,11 +2,11 @@
 
 #SBATCH --partition=htc
 #SBATCH --time=24:00:00
-#SBATCH --job-name=r-17-cumu-2k-test
+#SBATCH --job-name=r-17-match-test
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
-#SBATCH --output=r-17-cumu-2k-test.out
-#SBATCH --error=r-17-cumu-2k-test.err
+#SBATCH --output=r-17-match-test.out
+#SBATCH --error=r-17-match-test.err
 #SBATCH --gres=gpu:v100:1
 
 # reset modules
@@ -26,7 +26,7 @@ nvidia-smi
 
 # Executing the finetuning script with set options
 
-for modelpath in $DATA/gab-language-change/finetuned-models/reddit/cumu-models/bert*2017*_2k/; do
+for modelpath in $DATA/gab-language-change/finetuned-models/reddit/month-models/match/bert*2017*_2k/; do
     for testpath in $DATA/gab-language-change/0_data/clean/labelled_reddit/month_splits/test*_5k.csv; do
     
     echo $(basename $modelpath)-$(basename $testpath .csv)
@@ -35,7 +35,7 @@ for modelpath in $DATA/gab-language-change/finetuned-models/reddit/cumu-models/b
         --model_name_or_path $modelpath \
         --test_file $testpath \
         --per_device_eval_batch_size 256 \
-        --output_dir $DATA/gab-language-change/eval-results/reddit/classification/cumu-models \
+        --output_dir $DATA/gab-language-change/eval-results/reddit/classification/month-models/month+month/2k \
         --output_name $(basename $modelpath)-$(basename $testpath .csv) \
         --overwrite_output_dir \
         --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \

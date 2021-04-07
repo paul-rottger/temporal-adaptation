@@ -25,7 +25,7 @@ nvidia-smi
 
 # Executing the finetuning script with set options
 for modelpath in $DATA/gab-language-change/adapted-models/gab/total-models/bert*/; do
-    for trainpath in $DATA/gab-language-change/0_data/clean/labelled_ghc/total/train*.csv; do
+    for trainpath in $DATA/gab-language-change/0_data/clean/labelled_gq/total/train*.csv; do
         python run_finetuning.py \
             --model_name_or_path $modelpath \
             --train_file $trainpath \
@@ -33,7 +33,7 @@ for modelpath in $DATA/gab-language-change/adapted-models/gab/total-models/bert*
             --do_train \
             --per_device_train_batch_size 32 \
             --save_steps 100000 \
-            --output_dir $DATA/gab-language-change/finetuned-models/ghc/total-models/$(basename $modelpath)-$(basename $trainpath .csv) \
+            --output_dir $DATA/gab-language-change/finetuned-models/gq/total-models/$(basename $modelpath)-$(basename $trainpath .csv) \
             --overwrite_output_dir \
             --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
             --num_train_epochs 3 \
