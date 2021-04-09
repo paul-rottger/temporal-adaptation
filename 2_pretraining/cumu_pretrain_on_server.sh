@@ -1,13 +1,13 @@
 #!/bin/sh
 
 #SBATCH --partition=htc
-#SBATCH --time=48:00:00
-#SBATCH --job-name=red-cumu-pretrain
+#SBATCH --time=24:00:00
+#SBATCH --job-name=17-cumu-pretrain
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
-#SBATCH --output=red-cumu-pretrain.out
-#SBATCH --error=red-cumu-pretrain.err
-#SBATCH --gres=gpu:1 --constraint='gpu_mem:32GB'
+#SBATCH --output=17-cumu-pretrain.out
+#SBATCH --error=17-cumu-pretrain.err
+#SBATCH --gres=gpu:v100:1
 
 # reset modules
 module purge
@@ -54,6 +54,6 @@ for train_month in "04" "05" "06" "07" "08" "09" "10" "11" "12"; do
     load_month=$train_month
     
     # sleep just to make sure all the model saving from the adaptation script is done (not sure if necessary)
-    sleep 30s
+    sleep 15s
 
 done
