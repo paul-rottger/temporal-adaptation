@@ -43,7 +43,7 @@ for train_month in "04" "05" "06" "07" "08" "09" "10" "11" "12"; do
         --use_special_tokens \
         --line_by_line \
         --do_train \
-        --per_device_train_batch_size 128 \
+        --per_device_train_batch_size 64 \
         --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
         --output_dir $DATA/gab-language-change/adapted-models/reddit/cumu-models/bert-cumu_${year}_${train_month}_1m \
         --overwrite_output_dir \
