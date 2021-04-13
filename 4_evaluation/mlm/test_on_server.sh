@@ -2,11 +2,11 @@
 
 #SBATCH --partition=htc
 #SBATCH --time=24:00:00
-#SBATCH --job-name=m-mlm-test
+#SBATCH --job-name=17cumumlm-test
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=paul.rottger@oii.ox.ac.uk
-#SBATCH --output=m-mlm-test.out
-#SBATCH --error=m-mlm-test.err
+#SBATCH --output=17cumumlm-test.out
+#SBATCH --error=17cumumlm-test.err
 #SBATCH --gres=gpu:k80:1
 
 # reset modules
@@ -23,8 +23,8 @@ source activate $DATA/conda-envs/gab-language-change
 nvidia-smi
 #
 
-for modelpath in $DATA/gab-language-change/adapted-models/reddit/month-models/bert-*/; do
-    for testpath in $DATA/gab-language-change/0_data/clean/unlabelled_reddit/total/test_rand_10k.txt; do
+for modelpath in $DATA/gab-language-change/adapted-models/reddit/cumu-models/bert-*/; do
+    for testpath in $DATA/gab-language-change/0_data/clean/unlabelled_reddit/month_splits/test_2017_*_10k.txt; do
 
         echo $(basename $modelpath) $(basename $testpath)
 
@@ -35,7 +35,7 @@ for modelpath in $DATA/gab-language-change/adapted-models/reddit/month-models/be
             --line_by_line \
             --do_eval \
             --per_device_eval_batch_size 256 \
-            --output_dir $DATA/gab-language-change/eval-results/mlm/reddit/test-on-rand \
+            --output_dir $DATA/gab-language-change/eval-results/mlm/reddit/cumu-test \
             --output_name $(basename $modelpath)-$(basename $testpath .txt) \
             --overwrite_output_dir \
             --dataset_cache_dir $DATA/gab-language-change/z_cache/datasets \
